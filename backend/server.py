@@ -625,6 +625,7 @@ async def seed_database():
             "manufacturer": "PharmaCo",
             "requires_prescription": False,
             "rating": 4.5,
+            "image": "https://customer-assets.emergentagent.com/job_rxorder-platform/artifacts/9tk79s3m_IMG_4880.WEBP",
             "substitutes": [
                 {"id": str(uuid.uuid4()), "name": "Calpol 500mg", "price": 22.0},
                 {"id": str(uuid.uuid4()), "name": "Dolo 650mg", "price": 25.0}
@@ -645,6 +646,7 @@ async def seed_database():
             "manufacturer": "Micro Labs",
             "requires_prescription": False,
             "rating": 4.7,
+            "image": "https://images.unsplash.com/photo-1646392206581-2527b1cae5cb?w=400&h=400&fit=crop",
             "substitutes": [
                 {"id": str(uuid.uuid4()), "name": "Paracetamol 500mg", "price": 18.0}
             ],
@@ -664,6 +666,7 @@ async def seed_database():
             "manufacturer": "MedLife",
             "requires_prescription": True,
             "rating": 4.6,
+            "image": "https://images.unsplash.com/photo-1630094539465-9838f369f766?w=400&h=400&fit=crop",
             "substitutes": [
                 {"id": str(uuid.uuid4()), "name": "Novamox 500mg", "price": 130.0}
             ],
@@ -683,6 +686,7 @@ async def seed_database():
             "manufacturer": "HealthCare Ltd",
             "requires_prescription": False,
             "rating": 4.4,
+            "image": "https://images.unsplash.com/photo-1630094539413-a69caf88ce7d?w=400&h=400&fit=crop",
             "substitutes": [
                 {"id": str(uuid.uuid4()), "name": "Zyrtec 10mg", "price": 45.0}
             ],
@@ -702,6 +706,7 @@ async def seed_database():
             "manufacturer": "NutriHealth",
             "requires_prescription": False,
             "rating": 4.8,
+            "image": "https://images.unsplash.com/photo-1604598625038-50520974af2c?w=400&h=400&fit=crop",
             "substitutes": [],
             "created_at": datetime.utcnow()
         },
@@ -719,6 +724,7 @@ async def seed_database():
             "manufacturer": "ColdCare",
             "requires_prescription": False,
             "rating": 4.3,
+            "image": "https://images.unsplash.com/photo-1635166304271-04931640a450?w=400&h=400&fit=crop",
             "substitutes": [],
             "created_at": datetime.utcnow()
         },
@@ -736,6 +742,7 @@ async def seed_database():
             "manufacturer": "PainFree Pharma",
             "requires_prescription": False,
             "rating": 4.5,
+            "image": "https://images.unsplash.com/photo-1612448071097-a6b55cf216c4?w=400&h=400&fit=crop",
             "substitutes": [
                 {"id": str(uuid.uuid4()), "name": "Brufen 400mg", "price": 42.0}
             ],
@@ -755,6 +762,7 @@ async def seed_database():
             "manufacturer": "DigestWell",
             "requires_prescription": True,
             "rating": 4.6,
+            "image": "https://images.unsplash.com/photo-1596522016734-8e6136fe5cfa?w=400&h=400&fit=crop",
             "substitutes": [
                 {"id": str(uuid.uuid4()), "name": "Omez 20mg", "price": 90.0}
             ],
@@ -774,6 +782,7 @@ async def seed_database():
             "manufacturer": "HealthPlus",
             "requires_prescription": False,
             "rating": 4.7,
+            "image": "https://images.unsplash.com/photo-1668440246390-6f40b553adef?w=400&h=400&fit=crop",
             "substitutes": [],
             "created_at": datetime.utcnow()
         },
@@ -791,6 +800,7 @@ async def seed_database():
             "manufacturer": "DiabetCare",
             "requires_prescription": True,
             "rating": 4.5,
+            "image": "https://images.unsplash.com/photo-1731942717188-73eca60bf651?w=400&h=400&fit=crop",
             "substitutes": [
                 {"id": str(uuid.uuid4()), "name": "Glycomet 500mg", "price": 58.0}
             ],

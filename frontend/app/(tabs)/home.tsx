@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  TextInput,
   FlatList,
   ActivityIndicator,
   Image,
@@ -47,12 +46,8 @@ export default function HomeScreen() {
   const loadData = async () => {
     try {
       setLoading(true);
-      
-      // Load categories
       const catResponse = await axios.get(`${API_URL}/api/categories`);
       setCategories(['All', ...catResponse.data.categories]);
-      
-      // Load medicines
       const params = selectedCategory !== 'All' ? { category: selectedCategory } : {};
       const medResponse = await axios.get(`${API_URL}/api/medicines`, { params });
       setMedicines(medResponse.data);
@@ -65,12 +60,13 @@ export default function HomeScreen() {
 
   const renderMedicine = ({ item }: { item: Medicine }) => (
     <TouchableOpacity
+      testID={`medicine-card-${item.id}`}
       style={styles.medicineCard}
       onPress={() => router.push(`/medicine/${item.id}`)}
     >
       <View style={styles.medicineImageContainer}>
         {item.image ? (
-          <Image source={{ uri: item.image }} style={styles.medicineImage} />
+          <Image source={{ uri: item.image }} style={styles.medicineImage} resizeMode="cover" />
         ) : (
           <View style={styles.medicinePlaceholder}>
             <Ionicons name="medical" size={40} color="#d1d5db" />
@@ -82,7 +78,7 @@ export default function HomeScreen() {
           </View>
         )}
       </View>
-      
+
       <View style={styles.medicineInfo}>
         <Text style={styles.medicineName} numberOfLines={2}>
           {item.name}
@@ -90,19 +86,19 @@ export default function HomeScreen() {
         <Text style={styles.medicineSalt} numberOfLines={1}>
           {item.salt_composition}
         </Text>
-        
+
         <View style={styles.ratingContainer}>
           <Ionicons name="star" size={14} color="#fbbf24" />
           <Text style={styles.ratingText}>{item.rating}</Text>
         </View>
-        
+
         <View style={styles.priceContainer}>
           {item.discount > 0 && (
             <Text style={styles.originalPrice}>₹{item.price}</Text>
           )}
           <Text style={styles.finalPrice}>₹{item.final_price}</Text>
         </View>
-        
+
         {item.requires_prescription && (
           <View style={styles.prescriptionBadge}>
             <Ionicons name="document-text" size={12} color="#ef4444" />
@@ -113,8 +109,8 @@ export default function HomeScreen() {
     </TouchableOpacity>
   );
 
-  return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+  const ListHeader = useCallback(() => (
+    <View>
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>Hello, {user?.name || 'User'}!</Text>
@@ -126,6 +122,7 @@ export default function HomeScreen() {
       </View>
 
       <TouchableOpacity
+        testID="search-bar"
         style={styles.searchBar}
         onPress={() => router.push('/(tabs)/search')}
       >
@@ -142,6 +139,7 @@ export default function HomeScreen() {
         {categories.map((category) => (
           <TouchableOpacity
             key={category}
+            testID={`category-${category}`}
             style={[
               styles.categoryChip,
               selectedCategory === category && styles.categoryChipActive,
@@ -159,17 +157,25 @@ export default function HomeScreen() {
           </TouchableOpacity>
         ))}
       </ScrollView>
+    </View>
+  ), [categories, selectedCategory, user]);
 
-      {loading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#10b981" />
-        </View>
+  return (
+    <SafeAreaView style={styles.container} edges={['top']}>
+      {loading && medicines.length === 0 ? (
+        <>
+          <ListHeader />
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#10b981" />
+          </View>
+        </>
       ) : (
         <FlatList
           data={medicines}
           renderItem={renderMedicine}
           keyExtractor={(item) => item.id}
           numColumns={2}
+          ListHeaderComponent={ListHeader}
           contentContainerStyle={styles.medicinesList}
           columnWrapperStyle={styles.medicinesRow}
           showsVerticalScrollIndicator={false}
@@ -225,18 +231,18 @@ const styles = StyleSheet.create({
     color: '#9ca3af',
   },
   categoriesContainer: {
-    maxHeight: 50,
     marginBottom: 16,
+    flexGrow: 0,
   },
   categoriesContent: {
     paddingHorizontal: 16,
   },
   categoryChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 20,
     backgroundColor: '#f3f4f6',
-    marginRight: 8,
+    marginRight: 10,
   },
   categoryChipActive: {
     backgroundColor: '#10b981',
