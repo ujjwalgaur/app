@@ -60,7 +60,7 @@ export default function LoginScreen() {
     setLoading(true);
     try {
       await login(phone, otp);
-      router.replace('/(tabs)');
+      router.replace('/(tabs)/home');
     } catch (error: any) {
       Alert.alert('Error', error.message || 'Invalid OTP');
     } finally {

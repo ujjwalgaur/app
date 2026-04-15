@@ -38,14 +38,21 @@ export default function CartScreen() {
   }, []);
 
   const loadCart = async () => {
+    if (!token) {
+      setLoading(false);
+      return;
+    }
     try {
       setLoading(true);
       const response = await axios.get(`${API_URL}/api/cart`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       cartStore.setCart(response.data.items, response.data.total);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error loading cart:', error);
+      if (error.response?.status === 401) {
+        router.replace('/');
+      }
     } finally {
       setLoading(false);
     }
