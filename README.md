@@ -1,4 +1,4 @@
-# 🏥 Pharmacy App (Apollo-Inspired)
+# 🏥 Pharmacy App 
 
 A full-stack pharmacy mobile application built for local medical stores to digitize medicine ordering, inventory management, and customer engagement.
 
